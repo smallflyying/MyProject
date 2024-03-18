@@ -1,1 +1,30 @@
-spring.application.name=Demo-back
+spring:
+  security:
+    jwt:
+      key: abcdefg
+      expire: 7
+  data:
+    redis:
+      host: 120.76.137.41
+      port: 6379
+      password: Test123456
+      database: 0
+      lettuce:
+        pool:
+          min-idle: 10
+          max-idle: 100
+          max-active: 100
+          max-wait: 10000
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.76.137.41:3306/test?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: Test123456
+
+#mybatisplus配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
