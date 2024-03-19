@@ -1,5 +1,23 @@
 spring:
+  mail:
+    host: smtp.163.com
+    username: fly2529574569@163.com
+    password: TMJYYLTRJMQXXTEN
+  rabbitmq:
+    host: 120.76.137.41
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 3000
+
   security:
+    filter:
+      order: -100
     jwt:
       key: abcdefg
       expire: 7

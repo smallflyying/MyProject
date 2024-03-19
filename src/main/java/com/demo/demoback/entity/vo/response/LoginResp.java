@@ -14,7 +14,7 @@ import java.util.Date;
 @Accessors(chain = true)
 public class LoginResp {
     private String username;
-    private String userRole;
+    private String role;
     private String token;
     private Date expire;
 

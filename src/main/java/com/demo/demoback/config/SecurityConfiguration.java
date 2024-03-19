@@ -10,6 +10,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -77,11 +78,14 @@ public class SecurityConfiguration {
         User user = (User) authentication.getPrincipal();
         Account account = accountService.findAccountByNameOrEmail(user.getUsername());
         String token = jwtUtils.createJwt(user,account.getId(), account.getUsername());
-        LoginResp loginResp = new LoginResp();
-        loginResp.setUsername(account.getUsername());
-        loginResp.setUserRole(account.getRole());
-        loginResp.setExpire(jwtUtils.expireTime());
-        loginResp.setToken(token);
+        //LoginResp loginResp = new LoginResp();
+        LoginResp loginResp = account.asViewObject(LoginResp.class, loginResp1 -> {
+            loginResp1.setExpire(jwtUtils.expireTime());
+            loginResp1.setToken(token);
+        });
+        //loginResp.setUsername(account.getUsername());
+        //loginResp.setUserRole(account.getRole());
+        //BeanUtils.copyProperties(account,loginResp);
         response.getWriter().write(RestBean.success(loginResp).asJsonString());
     }
 
